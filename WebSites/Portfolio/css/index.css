@@ -1,0 +1,201 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Saira", sans-serif;
+    scroll-behavior: smooth;
+    letter-spacing: 1px;
+}
+body {
+    background: #000;
+    min-height: 600vh;
+}
+
+/* for pc (default) */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.6s;
+    padding: 40px 100px;
+    z-index: 10000;
+    animation: 1s ease-out 0s 1 slideInLeft;
+}
+header .logo {
+    position: relative;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transition: 0.6s;
+}
+header ul {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header ul.phone {
+    display: none;
+}
+header ul.nophone {
+    display: flex;
+}
+header ul li {
+    position: relative;
+    list-style: none;
+}
+header ul li a {
+    position: relative;
+    margin: 0 15px;
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: 0.5s;
+    padding: 5px 15px;
+    border-radius: 8px;
+}
+header ul li a:hover {
+    color: #000;
+    background: #fff;
+}
+header.sticky ul li a:hover {
+    color: #fff;
+    background: #000;
+}
+header.sticky {
+    background: #fff;
+    padding: 10px 100px;
+}
+header.sticky .logo {
+    color: #000;
+}
+header.sticky ul li a {
+    color: #000;
+}
+
+section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    white-space: initial;
+    background: url(/prefabs/diagmonds.png);
+    background-repeat: repeat;
+    color: #fff;
+}
+section h1 {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+section h3 {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+footer {
+    color: white;
+    text-align: center;
+    padding: 5px 5px;
+    letter-spacing: 1px;
+    z-index: 999;
+    font-size: 0.8em;
+}
+.content {
+    transform: translateY(200px);
+    opacity: 0;
+    transition: all 2s ease;
+    width: 100%;
+}
+.content.active {
+    transform: translateY(0px);
+    opacity: 1;
+}
+.socials {
+    font-size: 3em;
+    letter-spacing: 3px;
+    text-decoration: none;
+}
+.socials a {
+    color: #fff;
+    transition: 0.6s;
+}
+.socials a:hover {
+    color: #0a2baa;
+}
+/* Skills chart */
+
+.content .skills {
+    background: rgba(0, 0, 0, 0.3);
+    padding-left: 20vw;
+    padding-bottom: 30px;
+    list-style: none;
+}
+.content .skills .chart div {
+    width: 60vw;
+    height: 1em;
+    border: 1px solid white;
+}
+#html {
+    background: linear-gradient(to right, #0a2baa 60%, #fff 80%);
+}
+#css {
+    background: linear-gradient(to right, #0a2baa 50%, #fff 70%);
+}
+#js {
+    background: linear-gradient(to right, #0a2baa 30%, #fff 60%);
+}
+#php {
+    background: linear-gradient(to right, #0a2baa 50%, #fff 70%);
+}
+#java {
+    background: linear-gradient(to right, #0a2baa 50%, #fff 80%);
+}
+#cs {
+    background: linear-gradient(to right, #0a2baa 30%, #fff 50%);
+}
+#cpp {
+    background: linear-gradient(to right, #0a2baa 20%, #fff 50%);
+}
+
+/* for phone */
+
+@media (max-width: 960px) {
+    header {
+        padding: 10px 10px;
+    }
+    header .logo {
+        font-size: 1.5em;
+    }
+    header ul li a {
+        font-size: 0.9em;
+    }
+    header.sticky {
+        padding: 5px 5px;
+    }
+    header ul.phone {
+        display: flex;
+    }
+    header ul.nophone {
+        display: none;
+    }
+    header ul li a {
+        padding: 4px;
+    }
+}
