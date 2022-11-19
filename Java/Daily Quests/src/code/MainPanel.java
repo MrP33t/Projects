@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
@@ -16,6 +17,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 // Everything inside a window
@@ -58,6 +60,18 @@ public class MainPanel extends JPanel implements Runnable{
 	
 	// Currently selected quest
 	public static Quest currentlySelected = null;
+	
+	// Variables for textField and Button
+	private static int boxX = WINDOW_WIDTH / 5;
+	private static int boxY = WINDOW_HEIGHT / 10 * 9;
+	private static int boxWidth = WINDOW_WIDTH / 5 * 3;
+	private static int boxHeight = WINDOW_HEIGHT / 10;
+	
+	public static Rectangle textField = new Rectangle(boxX + 20, boxY + 10, boxWidth / 2, boxHeight / 2);
+	public static Rectangle button = new Rectangle(textField.x + textField.width + 40, boxY + 10, boxWidth / 4, boxHeight / 2);
+	
+	// TextField
+	public static boolean textFieldActive = false;
 	
 	public MainPanel() {
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -222,7 +236,17 @@ public class MainPanel extends JPanel implements Runnable{
 		}
 		
 		// TODO: Draw button and text field for adding main quests (Always on bottom)
+		// Box
+		g2D.setColor(Color.GREEN);
+		g2D.fillRect(this.boxX, this.boxY, this.boxWidth, this.boxHeight);
 		
+		// TextField
+		g2D.setColor(Color.PINK);
+		g2D.fill(textField);
+		
+		// Button
+		g2D.setColor(Color.YELLOW);
+		g2D.fill(button);
 		
 		// Drawing debugger
 		if (Debugger.getDebugger()) {
@@ -235,6 +259,5 @@ public class MainPanel extends JPanel implements Runnable{
 		Quest.yIterator = 0;
 		
 		g2D.dispose();
-		
 	}
 }

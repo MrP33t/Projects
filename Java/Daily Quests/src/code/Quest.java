@@ -57,17 +57,18 @@ public class Quest {
 		this.x = MainPanel.WINDOW_WIDTH / 4 + (20 * this.questLevel);
 		this.y = 100 + (100 * yIterator) - scrPos;
 		
-		
-		g2D.setColor(Color.RED);
-		g2D.drawRect(this.x, this.y, this.boxWidth, this.boxHeight);
-		g2D.drawString(questName + " " + questLevel, MainPanel.WINDOW_WIDTH / 4 + (20 * this.questLevel) + 20, 100 + (100 * yIterator) + 30 - scrPos);
-		
-		// If is selected then draw this
-		if (MainPanel.currentlySelected != null) {
-			if (MainPanel.currentlySelected.equals(this))
-			{
-				g2D.setColor(Color.BLUE);
-				g2D.drawRect(this.x - 6, this.y - 6, this.boxWidth + 12, this.boxHeight + 12);
+		if (this.y <= MainPanel.WINDOW_HEIGHT / 10 * 9) {
+			g2D.setColor(Color.RED);
+			g2D.drawRect(this.x, this.y, this.boxWidth, this.boxHeight);
+			g2D.drawString(questName + " " + questLevel, MainPanel.WINDOW_WIDTH / 4 + (20 * this.questLevel) + 20, 100 + (100 * yIterator) + 30 - scrPos);
+			
+			// If is selected then draw this
+			if (MainPanel.currentlySelected != null) {
+				if (MainPanel.currentlySelected.equals(this))
+				{
+					g2D.setColor(Color.BLUE);
+					g2D.drawRect(this.x - 6, this.y - 6, this.boxWidth + 12, this.boxHeight + 12);
+				}
 			}
 		}
 		
