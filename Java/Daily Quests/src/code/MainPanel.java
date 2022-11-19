@@ -72,6 +72,7 @@ public class MainPanel extends JPanel implements Runnable{
 	
 	// TextField
 	public static boolean textFieldActive = false;
+	public static String textFieldText = "";
 	
 	public MainPanel() {
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -173,6 +174,22 @@ public class MainPanel extends JPanel implements Runnable{
 				saveSubQuests(q, questt);
 			}
 		}
+	}
+	
+	// Method for handling textField 
+	public void typedInTextField(char a) {
+		MainPanel.textFieldText += a;
+	}
+	
+	public void deletedInTextField() {
+		MainPanel.textFieldText = deleteLastCharOfString(MainPanel.textFieldText);
+	}
+	
+	public String deleteLastCharOfString(String str) {
+	    if (str != null && str.length() > 0) {
+	        str = str.substring(0, str.length() - 1);
+	    }
+	    return str;
 	}
 	
 	// Method for starting thread of program

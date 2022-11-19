@@ -47,5 +47,6 @@ public class Debugger {
 		g2D.drawString("Mouse position: " + MousePositionX + ", " + MousePositionY, 10, 110);
 		g2D.drawString("Scroll position: " + scrollPosition, 10, 140);
 		g2D.drawString("Active TextField: " + MainPanel.textFieldActive, 10, 170);
+		g2D.drawString("Current text in TextField: " + MainPanel.textFieldText, 10, 200);
 	}
 }

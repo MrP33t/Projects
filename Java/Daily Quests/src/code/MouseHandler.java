@@ -82,7 +82,9 @@ public class MouseHandler implements MouseListener{
 	private void checkCollisionWithButton() {
 		if (Debugger.MousePositionX >= MainPanel.button.x && Debugger.MousePositionX <= (MainPanel.button.x + MainPanel.button.width)
 				&& Debugger.MousePositionY >= MainPanel.button.y && Debugger.MousePositionY <= (MainPanel.button.y + MainPanel.button.height)) {
-			MP.mainQuests.add(new Quest("Test"));
+			if(!MainPanel.textFieldText.isEmpty()) {
+				MP.mainQuests.add(new Quest(MainPanel.textFieldText));
+			}
 		}
 	}
 	
