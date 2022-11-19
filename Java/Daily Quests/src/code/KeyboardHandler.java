@@ -5,6 +5,11 @@ import java.awt.event.KeyListener;
 
 public class KeyboardHandler implements KeyListener{
 
+	private MainPanel MP;
+	
+	public KeyboardHandler(MainPanel MP) {
+		this.MP = MP;
+	}
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
@@ -21,6 +26,12 @@ public class KeyboardHandler implements KeyListener{
 			} else {
 				Debugger.setDebugger(true);
 			}
+			break;
+		case KeyEvent.VK_R:
+			MP.mainQuests.add(new Quest("Test"));
+			break;
+		case KeyEvent.VK_S:
+			MP.saveQuests();
 			break;
 		}
 		

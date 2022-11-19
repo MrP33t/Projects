@@ -11,19 +11,11 @@ public class QuestData implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	String questName;
-	ArrayList<QuestData> subQuests;
+	ArrayList<QuestData> subQuests = new ArrayList<QuestData>();
 	Boolean isDone;
 	
-	public static void saveData() {
-		// Copying from Quest to QuestData
-		
-		// Writing to file
-	}
-
-
-	public static void loadData() {
-		// Loading from file
-		
-		// Copying from QuestData to Quest
+	public QuestData (String questName, boolean isDone) {
+		this.questName = questName;
+		this.isDone = isDone;
 	}
 }
