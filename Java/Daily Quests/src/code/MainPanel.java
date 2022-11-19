@@ -44,6 +44,7 @@ public class MainPanel extends JPanel implements Runnable{
 	// Program Keyboard Handler
 	private KeyboardHandler keyH = new KeyboardHandler(this);
 	private MouseHandler mouseH = new MouseHandler();
+	private MouseWheelHandler mouseWH = new MouseWheelHandler();
 	
 	// Mouse position
 	public Point mousePosition = new Point(0,0);
@@ -62,6 +63,7 @@ public class MainPanel extends JPanel implements Runnable{
 
 		this.addKeyListener(this.keyH);
 		this.addMouseListener(this.mouseH);
+		this.addMouseWheelListener(this.mouseWH);
 		
 		this.setFocusable(true);
 		
@@ -219,6 +221,7 @@ public class MainPanel extends JPanel implements Runnable{
 		for (Quest q: mainQuests) {
 			q.draw(g2D);
 		}
+		MouseWheelHandler.maxScroll = Quest.yIterator * 100 - WINDOW_HEIGHT + 200;
 		Quest.yIterator = 0;
 		
 		g2D.dispose();

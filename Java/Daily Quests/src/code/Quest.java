@@ -38,10 +38,11 @@ public class Quest {
 	}
 	
 	public void draw(Graphics2D g2D) {
+		int scrPos = Debugger.scrollPosition;
 		
 		g2D.setColor(Color.RED);
-		g2D.drawRect(MainPanel.WINDOW_WIDTH / 4 + (20 * this.questLevel), 100 + (100 * yIterator), MainPanel.WINDOW_WIDTH / 2 - (40 * this.questLevel), MainPanel.WINDOW_HEIGHT / 10);
-		g2D.drawString(questName + " " + questLevel, MainPanel.WINDOW_WIDTH / 4 + (20 * this.questLevel) + 20, 100 + (100 * yIterator) + 30);
+		g2D.drawRect(MainPanel.WINDOW_WIDTH / 4 + (20 * this.questLevel), 100 + (100 * yIterator) - scrPos, MainPanel.WINDOW_WIDTH / 2 - (40 * this.questLevel), MainPanel.WINDOW_HEIGHT / 10);
+		g2D.drawString(questName + " " + questLevel, MainPanel.WINDOW_WIDTH / 4 + (20 * this.questLevel) + 20, 100 + (100 * yIterator) + 30 - scrPos);
 		
 		
 		yIterator++;
