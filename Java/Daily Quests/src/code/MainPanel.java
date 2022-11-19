@@ -26,14 +26,22 @@ public class MainPanel extends JPanel implements Runnable{
 	private double delta;
 	private long lastTime, currentTime, timer;
 	private int drawCount;
+	private int lastFPSCount = 0;
 	
 	// Program thread
 	private Thread programThread;
+	
+	// Program Keyboard Handler
+	private KeyboardHandler keyH = new KeyboardHandler();
 	
 	public MainPanel() {
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 		this.setBackground(Color.BLACK);
 		this.setDoubleBuffered(true);
+
+		this.addKeyListener(this.keyH);
+		
+		this.setFocusable(true);
 	}
 	
 	// Method for starting thread of program
@@ -67,15 +75,10 @@ public class MainPanel extends JPanel implements Runnable{
 			}
 			
 			if (timer >= 1000000000) {
-				System.out.println("FPS: " + drawCount);
+				lastFPSCount = drawCount;
 				drawCount = 0;
 				timer = 0;
 			}
-			
-			// Update
-			update();
-			// Draw
-			repaint();
 		}
 		
 	}
@@ -90,13 +93,14 @@ public class MainPanel extends JPanel implements Runnable{
 		
 		super.paintComponent(g);
 		
-		// Drawing everything in MainPanel
 		Graphics2D g2D = (Graphics2D) g;
 		
-		g2D.setColor(Color.WHITE);
-		
-		g2D.fillRect(100, 100, 200, 200);
+		// Drawing everything in MainPanel
+		if (Debugger.debugger) {
+			Debugger.draw(lastFPSCount, g2D);
+		}
 		
 		g2D.dispose();
+		
 	}
 }
