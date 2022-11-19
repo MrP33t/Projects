@@ -4,9 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 // Everything inside a window
 public class MainPanel extends JPanel implements Runnable{
@@ -33,6 +37,10 @@ public class MainPanel extends JPanel implements Runnable{
 	
 	// Program Keyboard Handler
 	private KeyboardHandler keyH = new KeyboardHandler();
+	private MouseHandler mouseH = new MouseHandler();
+	
+	// Mouse position
+	public Point mousePosition = new Point(0,0);
 	
 	public MainPanel() {
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -40,6 +48,7 @@ public class MainPanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 
 		this.addKeyListener(this.keyH);
+		this.addMouseListener(this.mouseH);
 		
 		this.setFocusable(true);
 	}
@@ -85,6 +94,10 @@ public class MainPanel extends JPanel implements Runnable{
 	
 	// Method for updating calculations and variables
 	public void update() {
+		// Calculating position of mouse
+		mousePosition = MouseInfo.getPointerInfo().getLocation();
+		SwingUtilities.convertPointFromScreen(mousePosition, this);
+		Debugger.setMousePosition(mousePosition.x, mousePosition.y);
 		
 	}
 	
@@ -96,7 +109,7 @@ public class MainPanel extends JPanel implements Runnable{
 		Graphics2D g2D = (Graphics2D) g;
 		
 		// Drawing everything in MainPanel
-		if (Debugger.debugger) {
+		if (Debugger.getDebugger()) {
 			Debugger.draw(lastFPSCount, g2D);
 		}
 		

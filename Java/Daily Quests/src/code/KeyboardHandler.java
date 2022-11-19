@@ -23,11 +23,13 @@ public class KeyboardHandler implements KeyListener{
 			}
 			break;
 		}
+		
+		Debugger.setPressedKey(KeyEvent.getKeyText(keyCode));
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+		Debugger.setPressedKey(" ");
 	}
 
 }
