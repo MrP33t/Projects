@@ -3,6 +3,7 @@ package code;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+// Class for scrolling
 public class MouseWheelHandler implements MouseWheelListener{
 
 	public static int maxScroll = 0;

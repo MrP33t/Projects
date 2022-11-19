@@ -43,7 +43,7 @@ public class MainPanel extends JPanel implements Runnable{
 	
 	// Program Keyboard Handler
 	private KeyboardHandler keyH = new KeyboardHandler(this);
-	private MouseHandler mouseH = new MouseHandler();
+	private MouseHandler mouseH = new MouseHandler(this);
 	private MouseWheelHandler mouseWH = new MouseWheelHandler();
 	
 	// Mouse position
@@ -55,6 +55,9 @@ public class MainPanel extends JPanel implements Runnable{
 	
 	// Path for saving Quest Data
 	private final static String questDataPath = "C:\\DailyQuests\\quests";
+	
+	// Currently selected quest
+	public static Quest currentlySelected = null;
 	
 	public MainPanel() {
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -94,7 +97,7 @@ public class MainPanel extends JPanel implements Runnable{
 		if (!mainQuestsData.equals(null)) {
 			
 			for (QuestData q: mainQuestsData) {
-				Quest quest = new Quest(q.questName, q.isDone);
+				Quest quest = new Quest(q.questName, q.isDone, q.questLevel);
 				mainQuests.add(quest);
 				if (!q.subQuests.isEmpty()) {
 					loadSubQuests(q, quest);
@@ -106,7 +109,7 @@ public class MainPanel extends JPanel implements Runnable{
 	// Method for loading subQuests
 	private void loadSubQuests(QuestData subQuest, Quest quest) {
 		for (QuestData q: subQuest.subQuests) {
-			Quest questt = new Quest(q.questName, q.isDone);
+			Quest questt = new Quest(q.questName, q.isDone, q.questLevel);
 			quest.subQuests.add(questt);
 			if (!q.subQuests.isEmpty()) {
 				loadSubQuests(q, questt);
@@ -124,7 +127,7 @@ public class MainPanel extends JPanel implements Runnable{
 			if (!mainQuests.isEmpty()) {
 						
 				for (Quest q: mainQuests) {
-					QuestData questData = new QuestData(q.questName, q.isDone);
+					QuestData questData = new QuestData(q.questName, q.isDone, q.questLevel);
 					mainQuestsData.add(questData);
 					if (!q.subQuests.isEmpty()) {
 						saveSubQuests(q, questData);
@@ -150,7 +153,7 @@ public class MainPanel extends JPanel implements Runnable{
 	// Method for saving subQuests
 	private void saveSubQuests(Quest quest, QuestData questData) {
 		for (Quest q: quest.subQuests) {
-			QuestData questt = new QuestData(q.questName, q.isDone);
+			QuestData questt = new QuestData(q.questName, q.isDone, q.questLevel);
 			questData.subQuests.add(questt);
 			if (!q.subQuests.isEmpty()) {
 				saveSubQuests(q, questt);
@@ -213,15 +216,22 @@ public class MainPanel extends JPanel implements Runnable{
 		
 		Graphics2D g2D = (Graphics2D) g;
 		
-		// Drawing debugger
-		if (Debugger.getDebugger()) {
-			Debugger.draw(lastFPSCount, g2D);
-		}
 		// Drawing quests
 		for (Quest q: mainQuests) {
 			q.draw(g2D);
 		}
+		
+		// TODO: Draw button and text field for adding main quests (Always on bottom)
+		
+		
+		// Drawing debugger
+		if (Debugger.getDebugger()) {
+			Debugger.draw(lastFPSCount, g2D);
+		}
+				
+		// Calculating maximum amount of scrolling
 		MouseWheelHandler.maxScroll = Quest.yIterator * 100 - WINDOW_HEIGHT + 200;
+		
 		Quest.yIterator = 0;
 		
 		g2D.dispose();

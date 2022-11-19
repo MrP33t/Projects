@@ -8,8 +8,8 @@ public class Debugger {
 	private static boolean debugger = false;
 	private static String pressedKey = " ";
 	private static String pressedMouseButton = " ";
-	private static int MousePositionX = 0;
-	private static int MousePositionY = 0;
+	public static int MousePositionX = 0;
+	public static int MousePositionY = 0;
 	public static int scrollPosition = 0;
 	
 	
@@ -37,6 +37,8 @@ public class Debugger {
 	public static void updateScrollPosition(int x) {
 		scrollPosition = scrollPosition + x;
 	}
+	
+	// Method for drawing debug UI
 	public static void draw(int FPS, Graphics2D g2D) {
 		g2D.setColor(Color.WHITE);
 		g2D.drawString(FPS + " FPS", 10, 20);

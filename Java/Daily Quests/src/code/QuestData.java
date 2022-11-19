@@ -13,9 +13,11 @@ public class QuestData implements Serializable {
 	String questName;
 	ArrayList<QuestData> subQuests = new ArrayList<QuestData>();
 	Boolean isDone;
+	int questLevel;
 	
-	public QuestData (String questName, boolean isDone) {
+	public QuestData (String questName, boolean isDone, int questLevel) {
 		this.questName = questName;
 		this.isDone = isDone;
+		this.questLevel = questLevel;
 	}
 }
