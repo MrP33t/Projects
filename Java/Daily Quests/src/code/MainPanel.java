@@ -219,6 +219,7 @@ public class MainPanel extends JPanel implements Runnable{
 		for (Quest q: mainQuests) {
 			q.draw(g2D);
 		}
+		Quest.yIterator = 0;
 		
 		g2D.dispose();
 		
