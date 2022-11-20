@@ -22,8 +22,13 @@ public class Quest {
 	Rectangle deleteBtn = new Rectangle();
 	
 	// Flag for delete btn
-	boolean onHover = false;
+	boolean deleteBtnOnHover = false;
 	
+	// Mark as Done button
+	Rectangle markBtn = new Rectangle();
+	
+	// Flag for mark btn
+	boolean markBtnOnHover = false;
 	
 	public Quest(String questName) {
 		this.questName = questName;
@@ -55,6 +60,9 @@ public class Quest {
 		
 		this.deleteBtn.height = MainPanel.WINDOW_HEIGHT / 10;
 		this.deleteBtn.width = MainPanel.WINDOW_HEIGHT / 10;
+		
+		this.markBtn.height = MainPanel.WINDOW_HEIGHT / 12;
+		this.markBtn.width = MainPanel.WINDOW_HEIGHT / 12;
 	}
 	
 	public void addSubQuest(String questName) {
@@ -69,9 +77,15 @@ public class Quest {
 		// Check if mouse is on deleteBtn if yes then put enable border
 		if (Debugger.MousePositionX >= this.deleteBtn.x && Debugger.MousePositionX <= (this.deleteBtn.x + this.deleteBtn.width)
 				&& Debugger.MousePositionY >= this.deleteBtn.y && Debugger.MousePositionY <= (this.deleteBtn.y + this.deleteBtn.height)) {
-			this.onHover = true;
+			this.deleteBtnOnHover = true;
 		} else {
-			this.onHover = false;
+			this.deleteBtnOnHover = false;
+		}
+		if (Debugger.MousePositionX >= this.markBtn.x && Debugger.MousePositionX <= (this.markBtn.x + this.markBtn.width)
+				&& Debugger.MousePositionY >= this.markBtn.y && Debugger.MousePositionY <= (this.markBtn.y + this.markBtn.height)) {
+			this.markBtnOnHover = true;
+		} else {
+			this.markBtnOnHover = false;
 		}
 		if (!this.subQuests.isEmpty()) {
 			for (Quest q: this.subQuests) {
@@ -111,9 +125,29 @@ public class Quest {
 		g2D.draw(deleteBtn);
 		
 		// If cursor is on deleteBtn draw this
-		if (this.onHover) {
+		if (this.deleteBtnOnHover) {
 			g2D.setColor(Color.BLUE);
 			g2D.drawRect(this.deleteBtn.x - 5, this.deleteBtn.y - 5, this.deleteBtn.width + 10, this.deleteBtn.height + 10);
+		}
+		
+		// Calculating markBtn position
+		this.markBtn.x = this.x + this.boxWidth - this.markBtn.width - 10;
+		this.markBtn.y = this.y + 7;
+		
+		// Drawing markBtn
+		g2D.setColor(Color.RED);
+		g2D.draw(markBtn);
+		
+		// Mark of completion
+		if (this.isDone) {
+			g2D.setColor(Color.ORANGE);
+			g2D.fillRect(this.markBtn.x + 6, this.markBtn.y + 6, this.markBtn.width - 13, this.markBtn.height - 13);
+		}
+		
+		// Drawing onHover effect on markBtn
+		if (this.markBtnOnHover) {
+			g2D.setColor(Color.BLUE);
+			g2D.drawRect(this.markBtn.x + 5, this.markBtn.y + 5, this.markBtn.width - 10, this.markBtn.height - 10);
 		}
 		
 		yIterator++;

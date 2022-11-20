@@ -86,6 +86,14 @@ public class MouseHandler implements MouseListener{
 	
 	// Method for checking collision 
 	private boolean checkCollision(Quest q) {
+		if (Debugger.MousePositionX >= q.markBtn.x && Debugger.MousePositionX <= (q.markBtn.x + q.markBtn.width)
+				&& Debugger.MousePositionY >= q.markBtn.y && Debugger.MousePositionY <= (q.markBtn.y + q.markBtn.height)) {
+			if (q.isDone) {
+				q.isDone = false;
+			} else {
+				q.isDone = true;
+			}
+		}
 		if (Debugger.MousePositionX >= q.x && Debugger.MousePositionX <= (q.x + q.boxWidth)
 				&& Debugger.MousePositionY >= q.y && Debugger.MousePositionY <= (q.y + q.boxHeight)) {
 			MainPanel.currentlySelected = q;
