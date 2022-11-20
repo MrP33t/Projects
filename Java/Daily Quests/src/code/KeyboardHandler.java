@@ -31,9 +31,6 @@ public class KeyboardHandler implements KeyListener{
 			case KeyEvent.VK_R:
 				MP.mainQuests.add(new Quest("Test"));
 				break;
-			case KeyEvent.VK_S:
-				MP.saveQuests();
-				break;
 			}
 		} else {
 			if (keyCode == KeyEvent.VK_BACK_SPACE) {

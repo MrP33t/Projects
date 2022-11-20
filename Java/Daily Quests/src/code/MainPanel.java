@@ -10,11 +10,13 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -113,6 +115,7 @@ public class MainPanel extends JPanel implements Runnable{
 	        mainQuestsData = (ArrayList<QuestData>) ois.readObject();
 	        
 	        ois.close();
+	        fis.close();
 		} catch (IOException | ClassNotFoundException e) {
 			System.out.println("Data could not be loaded");
 		}
@@ -144,6 +147,7 @@ public class MainPanel extends JPanel implements Runnable{
 	
 	// Method for saving Quest Data
 	public void saveQuests() {
+		mainQuestsData.clear();
 		
 		if (!mainQuests.isEmpty()) {
 			
@@ -169,6 +173,7 @@ public class MainPanel extends JPanel implements Runnable{
 		        oos.writeObject(mainQuestsData);
 		        
 		        oos.close();
+		        fos.close();
 			} catch (IOException e) {
 				System.out.println("Saving data error");
 			}
