@@ -1,6 +1,7 @@
 package code;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -82,6 +83,9 @@ public class MainPanel extends JPanel implements Runnable{
 	
 	// Flags
 	private static boolean flagFound = false;
+	public static int cursor = Cursor.DEFAULT_CURSOR;
+	public static int lastCursor = Cursor.DEFAULT_CURSOR;
+	public static boolean cursorOnSomething = false;
 	
 	public MainPanel() {
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -248,6 +252,9 @@ public class MainPanel extends JPanel implements Runnable{
 	
 	// Method for updating calculations and variables
 	public void update() {
+		
+		MainPanel.cursorOnSomething = false;
+		
 		// Calculating position of mouse
 		mousePosition = MouseInfo.getPointerInfo().getLocation();
 		SwingUtilities.convertPointFromScreen(mousePosition, this);
@@ -257,6 +264,7 @@ public class MainPanel extends JPanel implements Runnable{
 		if (Debugger.MousePositionX >= MainPanel.button.x && Debugger.MousePositionX <= (MainPanel.button.x + MainPanel.button.width)
 				&& Debugger.MousePositionY >= MainPanel.button.y && Debugger.MousePositionY <= (MainPanel.button.y + MainPanel.button.height)) {
 			this.buttonActive = true;
+			MainPanel.cursorOnSomething = true;
 		} else {
 			this.buttonActive = false;
 		}
@@ -265,6 +273,16 @@ public class MainPanel extends JPanel implements Runnable{
 			q.update();
 		}
 		
+		
+		if (MainPanel.cursorOnSomething) {
+			MainPanel.cursor = Cursor.HAND_CURSOR;
+		} else {
+			MainPanel.cursor = Cursor.DEFAULT_CURSOR;
+		}
+		
+		if (MainPanel.cursor != MainPanel.lastCursor) {
+			changeCursor(cursor);
+		}
 	}
 	
 	// Method for drawing, that is called when repaint() is used
@@ -398,5 +416,10 @@ public class MainPanel extends JPanel implements Runnable{
 				addSubQuestSearch(qq);
 			}
 		}
+	}
+	
+	public void changeCursor(int cursor) {
+		this.setCursor(new Cursor(cursor));
+		MainPanel.lastCursor = cursor;
 	}
 }

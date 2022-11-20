@@ -1,9 +1,14 @@
 package code;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Quest {
 
@@ -34,6 +39,9 @@ public class Quest {
 	
 	// Progression bar
 	Rectangle progressionBar = new Rectangle();
+	
+	// BufferedImage of deleteBtn
+	BufferedImage delete1, delete2;
 	
 	public Quest(String questName) {
 		this.questName = questName;
@@ -71,6 +79,14 @@ public class Quest {
 		
 		this.progressionBar.height = this.boxHeight / 3;
 		this.progressionBar.width = this.boxWidth / 8 * 7 - this.markBtn.width;
+		
+		// Load images
+		try {
+			delete1 = ImageIO.read(getClass().getResourceAsStream("/res/delete1.png"));
+			delete2 = ImageIO.read(getClass().getResourceAsStream("/res/delete2.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void addSubQuest(String questName) {
@@ -101,12 +117,14 @@ public class Quest {
 		if (Debugger.MousePositionX >= this.deleteBtn.x && Debugger.MousePositionX <= (this.deleteBtn.x + this.deleteBtn.width)
 				&& Debugger.MousePositionY >= this.deleteBtn.y && Debugger.MousePositionY <= (this.deleteBtn.y + this.deleteBtn.height)) {
 			this.deleteBtnOnHover = true;
+			MainPanel.cursorOnSomething = true;
 		} else {
 			this.deleteBtnOnHover = false;
 		}
 		if (Debugger.MousePositionX >= this.markBtn.x && Debugger.MousePositionX <= (this.markBtn.x + this.markBtn.width)
 				&& Debugger.MousePositionY >= this.markBtn.y && Debugger.MousePositionY <= (this.markBtn.y + this.markBtn.height)) {
 			this.markBtnOnHover = true;
+			MainPanel.cursorOnSomething = true;
 		} else {
 			this.markBtnOnHover = false;
 		}
@@ -144,13 +162,11 @@ public class Quest {
 		this.deleteBtn.y = this.y;
 		
 		// Drawing delete btn
-		g2D.setColor(Color.RED);
-		g2D.draw(deleteBtn);
+		g2D.drawImage(delete1, this.deleteBtn.x, this.deleteBtn.y, this.deleteBtn.width, this.deleteBtn.height, null);
 		
 		// If cursor is on deleteBtn draw this
 		if (this.deleteBtnOnHover) {
-			g2D.setColor(Color.BLUE);
-			g2D.drawRect(this.deleteBtn.x - 5, this.deleteBtn.y - 5, this.deleteBtn.width + 10, this.deleteBtn.height + 10);
+			g2D.drawImage(delete2, this.deleteBtn.x, this.deleteBtn.y, this.deleteBtn.width, this.deleteBtn.height, null);
 		}
 		
 		// Calculating markBtn position
