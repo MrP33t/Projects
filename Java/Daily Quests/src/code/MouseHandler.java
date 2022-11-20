@@ -8,6 +8,9 @@ public class MouseHandler implements MouseListener{
 	private MainPanel MP;
 	public static boolean foundOne = false;
 	
+	// Flag for deletion
+	private static boolean deleted = false;
+	
 	public MouseHandler(MainPanel MP) {
 		this.MP = MP;
 	}
@@ -24,10 +27,12 @@ public class MouseHandler implements MouseListener{
 		case MouseEvent.BUTTON1: 
 			if(!MP.mainQuests.isEmpty()) {
 				foundOne = false;
+				deleted = false;
 				for (Quest q: MP.mainQuests) {
 					clickedMouseBtn1(q);
+					if (deleted) return;
 				}
-				if (Debugger.MousePositionY <= MainPanel.WINDOW_WIDTH / 10) {
+				if (Debugger.MousePositionY <= MainPanel.WINDOW_HEIGHT / 10 * 9) {
 					if (!foundOne) {
 						MainPanel.currentlySelected = null;
 					}
@@ -64,7 +69,7 @@ public class MouseHandler implements MouseListener{
 
 	// Method handling clicking Btn1 on mouse
 	private void clickedMouseBtn1(Quest quest) {
-		
+
 		// For all quests check if cursor is in its bounds
 		if (Debugger.MousePositionY >= MainPanel.WINDOW_HEIGHT / 10 * 9) return;
 		if (checkCollision(quest)) return;
@@ -73,6 +78,7 @@ public class MouseHandler implements MouseListener{
 			if (!q.subQuests.isEmpty()) {
 				for (Quest qq: q.subQuests) {
 					clickedMouseBtn1(qq);
+					if (deleted) return;
 				}
 			}
 		}
@@ -86,6 +92,12 @@ public class MouseHandler implements MouseListener{
 			foundOne = true;
 			return true;
 		}
+		if (Debugger.MousePositionX >= q.deleteBtn.x && Debugger.MousePositionX <= (q.deleteBtn.x + q.deleteBtn.width)
+				&& Debugger.MousePositionY >= q.deleteBtn.y && Debugger.MousePositionY <= (q.deleteBtn.y + q.deleteBtn.height)) {
+			MP.deleteQuest(q);
+			deleted = true;
+			return true;
+		}
 		return false;
 	}
 	
@@ -95,6 +107,7 @@ public class MouseHandler implements MouseListener{
 				&& Debugger.MousePositionY >= MainPanel.button.y && Debugger.MousePositionY <= (MainPanel.button.y + MainPanel.button.height)) {
 			if(!MainPanel.textFieldText.isEmpty()) {
 				if (MainPanel.currentlySelected != null) {
+					MP.createSubQuest();
 					System.out.println("Adding subquest");
 				} else {
 					MP.mainQuests.add(new Quest(MainPanel.textFieldText));

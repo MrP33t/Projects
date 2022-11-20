@@ -2,6 +2,7 @@ package code;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Quest {
@@ -17,29 +18,40 @@ public class Quest {
 	// Drawed box of quest
 	int x, y, boxHeight, boxWidth;
 	
+	// Delete button
+	Rectangle deleteBtn = new Rectangle();
+	
+	
 	public Quest(String questName) {
 		this.questName = questName;
 		this.isDone = false;
 		this.questLevel = 0;
 		
-		this.boxWidth = MainPanel.WINDOW_WIDTH / 2 - (40 * this.questLevel);
-		this.boxHeight = MainPanel.WINDOW_HEIGHT / 10;
+		getReady();
 	}
 	public Quest(String questName, int questLevel) {
 		this.questName = questName;
 		this.isDone = false;
 		this.questLevel = questLevel;
 		
-		this.boxWidth = MainPanel.WINDOW_WIDTH / 2 - (40 * this.questLevel);
-		this.boxHeight = MainPanel.WINDOW_HEIGHT / 10;
+		getReady();
 	}
 	public Quest(String questName, boolean isDone, int questLevel) {
 		this.questName = questName;
 		this.isDone = isDone;
 		this.questLevel = questLevel;
 		
+		getReady();
+	}
+	
+	// Method for setting starting variables 
+	private void getReady() {
+		
 		this.boxWidth = MainPanel.WINDOW_WIDTH / 2 - (40 * this.questLevel);
 		this.boxHeight = MainPanel.WINDOW_HEIGHT / 10;
+		
+		this.deleteBtn.height = MainPanel.WINDOW_HEIGHT / 10;
+		this.deleteBtn.width = MainPanel.WINDOW_HEIGHT / 10;
 	}
 	
 	public void addSubQuest(String questName) {
@@ -71,6 +83,14 @@ public class Quest {
 				}
 			}
 		}
+		
+		// Calculating delete btn position
+		this.deleteBtn.x = this.x + this.boxWidth + 20;
+		this.deleteBtn.y = this.y;
+		
+		// Drawing delete btn
+		g2D.setColor(Color.ORANGE);
+		g2D.fill(deleteBtn);
 		
 		yIterator++;
 		

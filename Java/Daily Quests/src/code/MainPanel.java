@@ -78,6 +78,9 @@ public class MainPanel extends JPanel implements Runnable{
 	// Button
 	private boolean buttonActive = false;
 	
+	// Flags
+	private static boolean flagFound = false;
+	
 	public MainPanel() {
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 		this.setBackground(Color.BLACK);
@@ -310,5 +313,71 @@ public class MainPanel extends JPanel implements Runnable{
 		Quest.yIterator = 0;
 		
 		g2D.dispose();
+	}
+	
+	// Method for deleting quest
+	public void deleteQuest(Quest toDelete) {
+		for (Quest q: this.mainQuests) {
+			if (q.equals(toDelete)) {
+				this.mainQuests.remove(toDelete);
+				return;
+			} else {
+				if(!q.subQuests.isEmpty()) {
+					deleteQuestRecurent(q, toDelete);
+				}
+			}
+		}
+	}
+	
+	public void deleteQuestRecurent(Quest q, Quest toDelete) {
+		for (Quest qq: q.subQuests) {
+			if (qq.equals(toDelete)) {
+				q.subQuests.remove(toDelete);
+				return;
+			} else {
+				if (!qq.subQuests.isEmpty()) {
+					deleteQuestRecurent(qq, toDelete);
+				}
+			}
+		}
+	}
+	
+	// Method for adding subquests after searching for currently selected quest
+	public void createSubQuest() {
+		
+		flagFound = false;
+		for (Quest q: this.mainQuests) {
+			if (flagFound) return;
+			if (q.equals(MainPanel.currentlySelected)) {
+				q.addSubQuest(textFieldText);
+				flagFound = true;
+				return;
+			}
+			if (!q.subQuests.isEmpty()) {
+				addSubQuestSearch(q);
+			}
+		}
+	}
+	
+	// Method for adding subquests after searching for currently selected quest
+	public void addSubQuestSearch(Quest q) {
+		
+		if (flagFound) return;
+		if (q.equals(MainPanel.currentlySelected)) {
+			q.addSubQuest(textFieldText);
+			flagFound = true;
+			return;
+		}
+		for (Quest qq: q.subQuests) {
+			if (flagFound) return;
+			if (qq.equals(MainPanel.currentlySelected)) {
+				qq.addSubQuest(textFieldText);
+				flagFound = true;
+				return;
+			}
+			if (!qq.subQuests.isEmpty()) {
+				addSubQuestSearch(qq);
+			}
+		}
 	}
 }
