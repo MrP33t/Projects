@@ -21,6 +21,9 @@ public class Quest {
 	// Delete button
 	Rectangle deleteBtn = new Rectangle();
 	
+	// Flag for delete btn
+	boolean onHover = false;
+	
 	
 	public Quest(String questName) {
 		this.questName = questName;
@@ -62,6 +65,21 @@ public class Quest {
 		this.subQuests.remove(q);
 	}
 	
+	public void update() {
+		// Check if mouse is on deleteBtn if yes then put enable border
+		if (Debugger.MousePositionX >= this.deleteBtn.x && Debugger.MousePositionX <= (this.deleteBtn.x + this.deleteBtn.width)
+				&& Debugger.MousePositionY >= this.deleteBtn.y && Debugger.MousePositionY <= (this.deleteBtn.y + this.deleteBtn.height)) {
+			this.onHover = true;
+		} else {
+			this.onHover = false;
+		}
+		if (!this.subQuests.isEmpty()) {
+			for (Quest q: this.subQuests) {
+				q.update();
+			}
+		}
+	}
+	
 	public void draw(Graphics2D g2D) {
 		int scrPos = Debugger.scrollPosition;
 		
@@ -89,8 +107,14 @@ public class Quest {
 		this.deleteBtn.y = this.y;
 		
 		// Drawing delete btn
-		g2D.setColor(Color.ORANGE);
-		g2D.fill(deleteBtn);
+		g2D.setColor(Color.RED);
+		g2D.draw(deleteBtn);
+		
+		// If cursor is on deleteBtn draw this
+		if (this.onHover) {
+			g2D.setColor(Color.BLUE);
+			g2D.drawRect(this.deleteBtn.x - 5, this.deleteBtn.y - 5, this.deleteBtn.width + 10, this.deleteBtn.height + 10);
+		}
 		
 		yIterator++;
 		

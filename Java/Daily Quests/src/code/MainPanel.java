@@ -253,6 +253,10 @@ public class MainPanel extends JPanel implements Runnable{
 			this.buttonActive = false;
 		}
 		
+		for (Quest q: mainQuests) {
+			q.update();
+		}
+		
 	}
 	
 	// Method for drawing, that is called when repaint() is used
