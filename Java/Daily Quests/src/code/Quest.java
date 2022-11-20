@@ -14,6 +14,8 @@ public class Quest {
 	ArrayList<Quest> subQuests = new ArrayList<Quest>();
 	Boolean isDone;
 	int questLevel;
+	int progress = 0;
+	int maxProgress = 1;
 	
 	// Drawed box of quest
 	int x, y, boxHeight, boxWidth;
@@ -29,6 +31,9 @@ public class Quest {
 	
 	// Flag for mark btn
 	boolean markBtnOnHover = false;
+	
+	// Progression bar
+	Rectangle progressionBar = new Rectangle();
 	
 	public Quest(String questName) {
 		this.questName = questName;
@@ -63,6 +68,9 @@ public class Quest {
 		
 		this.markBtn.height = MainPanel.WINDOW_HEIGHT / 12;
 		this.markBtn.width = MainPanel.WINDOW_HEIGHT / 12;
+		
+		this.progressionBar.height = this.boxHeight / 3;
+		this.progressionBar.width = this.boxWidth / 8 * 7 - this.markBtn.width;
 	}
 	
 	public void addSubQuest(String questName) {
@@ -72,8 +80,23 @@ public class Quest {
 	public void deleteSubQuest(Quest q) {
 		this.subQuests.remove(q);
 	}
+	public void calculateProgression() {
+		this.maxProgress = 1;
+		this.progress = 0;
+		if (this.isDone) this.progress++;
+		if (!this.subQuests.isEmpty()) {
+			this.maxProgress = 0;
+			this.progress = 0;
+			for (Quest q: this.subQuests) {
+				if (q.isDone) this.progress++;
+				this.maxProgress++;
+				q.calculateProgression();
+			}
+		}
+	}
 	
 	public void update() {
+		
 		// Check if mouse is on deleteBtn if yes then put enable border
 		if (Debugger.MousePositionX >= this.deleteBtn.x && Debugger.MousePositionX <= (this.deleteBtn.x + this.deleteBtn.width)
 				&& Debugger.MousePositionY >= this.deleteBtn.y && Debugger.MousePositionY <= (this.deleteBtn.y + this.deleteBtn.height)) {
@@ -148,6 +171,21 @@ public class Quest {
 		if (this.markBtnOnHover) {
 			g2D.setColor(Color.BLUE);
 			g2D.drawRect(this.markBtn.x + 5, this.markBtn.y + 5, this.markBtn.width - 10, this.markBtn.height - 10);
+		}
+		
+		// Progression bar
+		if (this.subQuests.size() > 1) {
+			// Calculating position of progression bar
+			this.progressionBar.x = this.x + 10;
+			this.progressionBar.y = this.y + 50;
+			
+			// Drawing progress
+			g2D.setColor(new Color(209, 160, 0));
+			g2D.fillRect(this.progressionBar.x, this.progressionBar.y, this.progressionBar.width / this.maxProgress * this.progress, this.progressionBar.height);
+			
+			// Drawing progressionBar outline
+			g2D.setColor(Color.WHITE);
+			g2D.draw(progressionBar);
 		}
 		
 		yIterator++;

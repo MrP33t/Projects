@@ -97,6 +97,9 @@ public class MainPanel extends JPanel implements Runnable{
 		
 		// Load data if there are any to load else create empty list
 		loadQuests();
+		
+		// Calculate progress
+		this.calculateProgress();
 	}
 	
 	// Method for loading Quest data
@@ -317,6 +320,13 @@ public class MainPanel extends JPanel implements Runnable{
 		Quest.yIterator = 0;
 		
 		g2D.dispose();
+	}
+	
+	// Method for calculating progress for each quest
+	public void calculateProgress() {
+		for (Quest q: mainQuests) {
+			q.calculateProgression();
+		}
 	}
 	
 	// Method for deleting quest

@@ -93,6 +93,7 @@ public class MouseHandler implements MouseListener{
 			} else {
 				q.isDone = true;
 			}
+			MP.calculateProgress();
 		}
 		if (Debugger.MousePositionX >= q.x && Debugger.MousePositionX <= (q.x + q.boxWidth)
 				&& Debugger.MousePositionY >= q.y && Debugger.MousePositionY <= (q.y + q.boxHeight)) {
