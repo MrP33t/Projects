@@ -104,6 +104,7 @@ public class MouseHandler implements MouseListener{
 		if (Debugger.MousePositionX >= q.deleteBtn.x && Debugger.MousePositionX <= (q.deleteBtn.x + q.deleteBtn.width)
 				&& Debugger.MousePositionY >= q.deleteBtn.y && Debugger.MousePositionY <= (q.deleteBtn.y + q.deleteBtn.height)) {
 			MP.deleteQuest(q);
+			MainPanel.currentlySelected = null;
 			deleted = true;
 			return true;
 		}

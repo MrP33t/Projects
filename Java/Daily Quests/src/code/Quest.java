@@ -41,7 +41,7 @@ public class Quest {
 	Rectangle progressionBar = new Rectangle();
 	
 	// BufferedImage of deleteBtn
-	BufferedImage delete1, delete2;
+	BufferedImage delete1, delete2, checked1, checked2;
 	
 	public Quest(String questName) {
 		this.questName = questName;
@@ -71,11 +71,11 @@ public class Quest {
 		this.boxWidth = MainPanel.WINDOW_WIDTH / 2 - (40 * this.questLevel);
 		this.boxHeight = MainPanel.WINDOW_HEIGHT / 10;
 		
-		this.deleteBtn.height = MainPanel.WINDOW_HEIGHT / 10;
-		this.deleteBtn.width = MainPanel.WINDOW_HEIGHT / 10;
+		this.deleteBtn.height = MainPanel.WINDOW_HEIGHT / 16;
+		this.deleteBtn.width = MainPanel.WINDOW_HEIGHT / 16;
 		
-		this.markBtn.height = MainPanel.WINDOW_HEIGHT / 12;
-		this.markBtn.width = MainPanel.WINDOW_HEIGHT / 12;
+		this.markBtn.height = MainPanel.WINDOW_HEIGHT / 16;
+		this.markBtn.width = MainPanel.WINDOW_HEIGHT / 16;
 		
 		this.progressionBar.height = this.boxHeight / 3;
 		this.progressionBar.width = this.boxWidth / 8 * 7 - this.markBtn.width;
@@ -84,6 +84,9 @@ public class Quest {
 		try {
 			delete1 = ImageIO.read(getClass().getResourceAsStream("/res/delete1.png"));
 			delete2 = ImageIO.read(getClass().getResourceAsStream("/res/delete2.png"));
+			
+			checked1 = ImageIO.read(getClass().getResourceAsStream("/res/checked1.png"));
+			checked2 = ImageIO.read(getClass().getResourceAsStream("/res/checked2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -159,7 +162,7 @@ public class Quest {
 		
 		// Calculating delete btn position
 		this.deleteBtn.x = this.x + this.boxWidth + 20;
-		this.deleteBtn.y = this.y;
+		this.deleteBtn.y = this.y + this.deleteBtn.height / 3;
 		
 		// Drawing delete btn
 		g2D.drawImage(delete1, this.deleteBtn.x, this.deleteBtn.y, this.deleteBtn.width, this.deleteBtn.height, null);
@@ -171,22 +174,19 @@ public class Quest {
 		
 		// Calculating markBtn position
 		this.markBtn.x = this.x + this.boxWidth - this.markBtn.width - 10;
-		this.markBtn.y = this.y + 7;
+		this.markBtn.y = this.y + this.markBtn.height / 4;
 		
 		// Drawing markBtn
-		g2D.setColor(Color.RED);
-		g2D.draw(markBtn);
+		g2D.drawImage(checked1, this.markBtn.x, this.markBtn.y, this.markBtn.width, this.markBtn.height, null);
 		
 		// Mark of completion
 		if (this.isDone) {
-			g2D.setColor(Color.ORANGE);
-			g2D.fillRect(this.markBtn.x + 6, this.markBtn.y + 6, this.markBtn.width - 13, this.markBtn.height - 13);
+			g2D.drawImage(checked2, this.markBtn.x, this.markBtn.y, this.markBtn.width, this.markBtn.height, null);
 		}
 		
 		// Drawing onHover effect on markBtn
 		if (this.markBtnOnHover) {
-			g2D.setColor(Color.BLUE);
-			g2D.drawRect(this.markBtn.x + 5, this.markBtn.y + 5, this.markBtn.width - 10, this.markBtn.height - 10);
+			g2D.drawImage(checked1, this.markBtn.x - 8, this.markBtn.y - 8, this.markBtn.width + 16, this.markBtn.height + 16, null);
 		}
 		
 		// Progression bar
