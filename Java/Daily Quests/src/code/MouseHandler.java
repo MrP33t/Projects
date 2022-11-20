@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 public class MouseHandler implements MouseListener{
 
 	private MainPanel MP;
+	public static boolean foundOne = false;
 	
 	public MouseHandler(MainPanel MP) {
 		this.MP = MP;
@@ -22,8 +23,14 @@ public class MouseHandler implements MouseListener{
 		switch(e.getButton()) {
 		case MouseEvent.BUTTON1: 
 			if(!MP.mainQuests.isEmpty()) {
+				foundOne = false;
 				for (Quest q: MP.mainQuests) {
 					clickedMouseBtn1(q);
+				}
+				if (Debugger.MousePositionY <= MainPanel.WINDOW_WIDTH / 10) {
+					if (!foundOne) {
+						MainPanel.currentlySelected = null;
+					}
 				}
 			}
 			checkCollisionWithButton();
@@ -57,6 +64,7 @@ public class MouseHandler implements MouseListener{
 
 	// Method handling clicking Btn1 on mouse
 	private void clickedMouseBtn1(Quest quest) {
+		
 		// For all quests check if cursor is in its bounds
 		if (Debugger.MousePositionY >= MainPanel.WINDOW_HEIGHT / 10 * 9) return;
 		if (checkCollision(quest)) return;
@@ -75,15 +83,24 @@ public class MouseHandler implements MouseListener{
 		if (Debugger.MousePositionX >= q.x && Debugger.MousePositionX <= (q.x + q.boxWidth)
 				&& Debugger.MousePositionY >= q.y && Debugger.MousePositionY <= (q.y + q.boxHeight)) {
 			MainPanel.currentlySelected = q;
+			foundOne = true;
 			return true;
 		}
 		return false;
 	}
+	
+	// Method for handling button Add clicked
 	private void checkCollisionWithButton() {
 		if (Debugger.MousePositionX >= MainPanel.button.x && Debugger.MousePositionX <= (MainPanel.button.x + MainPanel.button.width)
 				&& Debugger.MousePositionY >= MainPanel.button.y && Debugger.MousePositionY <= (MainPanel.button.y + MainPanel.button.height)) {
 			if(!MainPanel.textFieldText.isEmpty()) {
-				MP.mainQuests.add(new Quest(MainPanel.textFieldText));
+				if (MainPanel.currentlySelected != null) {
+					System.out.println("Adding subquest");
+				} else {
+					MP.mainQuests.add(new Quest(MainPanel.textFieldText));
+					System.out.println("Adding main quest");
+				}
+				MainPanel.textFieldText = "";
 			}
 		}
 	}

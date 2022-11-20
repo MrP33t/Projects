@@ -2,6 +2,7 @@ package code;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
@@ -67,12 +68,15 @@ public class MainPanel extends JPanel implements Runnable{
 	private static int boxWidth = WINDOW_WIDTH / 5 * 3;
 	private static int boxHeight = WINDOW_HEIGHT / 10;
 	
-	public static Rectangle textField = new Rectangle(boxX + 20, boxY + 10, boxWidth / 2, boxHeight / 2);
-	public static Rectangle button = new Rectangle(textField.x + textField.width + 40, boxY + 10, boxWidth / 4, boxHeight / 2);
+	public static Rectangle textField = new Rectangle(boxX + (boxWidth / 12), boxY + boxHeight / 4, boxWidth / 6 * 3, boxHeight / 2);
+	public static Rectangle button = new Rectangle(textField.x + textField.width + boxWidth / 6, boxY + boxHeight / 4, boxWidth / 6, boxHeight / 2);
 	
 	// TextField
 	public static boolean textFieldActive = false;
 	public static String textFieldText = "";
+	
+	// Button
+	private boolean buttonActive = false;
 	
 	public MainPanel() {
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -238,6 +242,14 @@ public class MainPanel extends JPanel implements Runnable{
 		SwingUtilities.convertPointFromScreen(mousePosition, this);
 		Debugger.setMousePosition(mousePosition.x, mousePosition.y);
 		
+		// If mouse hover over add button set button to active
+		if (Debugger.MousePositionX >= MainPanel.button.x && Debugger.MousePositionX <= (MainPanel.button.x + MainPanel.button.width)
+				&& Debugger.MousePositionY >= MainPanel.button.y && Debugger.MousePositionY <= (MainPanel.button.y + MainPanel.button.height)) {
+			this.buttonActive = true;
+		} else {
+			this.buttonActive = false;
+		}
+		
 	}
 	
 	// Method for drawing, that is called when repaint() is used
@@ -252,18 +264,40 @@ public class MainPanel extends JPanel implements Runnable{
 			q.draw(g2D);
 		}
 		
-		// TODO: Draw button and text field for adding main quests (Always on bottom)
 		// Box
-		g2D.setColor(Color.GREEN);
+		g2D.setColor(Color.BLACK);
 		g2D.fillRect(this.boxX, this.boxY, this.boxWidth, this.boxHeight);
+		g2D.setColor(Color.RED);
+		g2D.drawRect(this.boxX, this.boxY, this.boxWidth, this.boxHeight);
 		
 		// TextField
-		g2D.setColor(Color.PINK);
+		if (MainPanel.textFieldActive) {
+			g2D.setColor(Color.WHITE);
+		} else {
+			g2D.setColor(new Color(217, 217, 217));
+		}
 		g2D.fill(textField);
+		g2D.setColor(Color.RED);
+		g2D.draw(textField);
+		
+		g2D.setColor(Color.BLACK);
+		g2D.setFont(getFont().deriveFont(Font.BOLD, 15));
+		g2D.drawString(MainPanel.textFieldText, textField.x + 10, textField.y + 25);
 		
 		// Button
-		g2D.setColor(Color.YELLOW);
+		g2D.setColor(Color.BLACK);
 		g2D.fill(button);
+		g2D.setColor(Color.RED);
+		g2D.draw(button);
+		g2D.setColor(Color.WHITE);
+		g2D.drawString("Add", button.x + (button.width / 2) - 20, button.y + 25);
+		
+		if (this.buttonActive) {
+			g2D.setColor(Color.BLUE);
+			g2D.drawRect(button.x - 5, button.y - 5, button.width + 10, button.height + 10);
+		}
+		
+		g2D.setFont(getFont().deriveFont(Font.PLAIN, 13));
 		
 		// Drawing debugger
 		if (Debugger.getDebugger()) {
