@@ -1,0 +1,103 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Saira", sans-serif;
+    scroll-behavior: smooth;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: white;
+}
+body {
+    background-image: url(/prefabs/diagmonds.png);
+}
+.bar {
+    width: 100%;
+    margin-bottom: 70px;
+    padding: 30px;
+}
+.logo {
+    text-decoration: none;
+    position: absolute;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transition: 0.5s ease-in-out;
+    margin: 30px;
+    padding: 3px;
+}
+.logo:hover {
+    transform: rotate(-20deg);
+}
+.card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+.card {
+    flex: 0 1 350px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: inherit;
+    position: relative;
+    overflow: hidden;
+    margin: 40px;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.5);
+    transition: 0.5s ease-in-out;
+}
+.card .image {
+    padding: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+.card .image img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+}
+.card .info {
+    padding: 5px;
+    text-align: center;
+}
+.card .info p {
+    height: 150px;
+}
+.card .info .button {
+    width: 60%;
+    height: 10%;
+    position: relative;
+    left: calc(20% - 30px);
+    background: white;
+    color: black;
+    margin: 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+.card .info .button a {
+    color: black;
+    font-size: 18px;
+}
+.card .info .button:hover {
+    box-shadow: 0 0 6px 6px rgba(255, 255, 255, 0.6);
+}
+.card:hover {
+    transform: scale(1.1);
+}
+footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px 5px;
+    letter-spacing: 1px;
+    z-index: 999;
+    font-size: 0.8em;
+}
