@@ -1,9 +1,12 @@
 package code;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +44,7 @@ public class Quest {
 	Rectangle progressionBar = new Rectangle();
 	
 	// BufferedImage of deleteBtn
-	BufferedImage delete1, delete2, checked1, checked2;
+	BufferedImage delete1, delete2, checked1, checked2, tile;
 	
 	public Quest(String questName) {
 		this.questName = questName;
@@ -87,6 +90,8 @@ public class Quest {
 			
 			checked1 = ImageIO.read(getClass().getResourceAsStream("/res/checked1.png"));
 			checked2 = ImageIO.read(getClass().getResourceAsStream("/res/checked2.png"));
+			
+			tile = ImageIO.read(getClass().getResourceAsStream("/res/tile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -146,15 +151,16 @@ public class Quest {
 		this.y = 100 + (100 * yIterator) - scrPos;
 		
 		if (this.y <= MainPanel.WINDOW_HEIGHT / 10 * 9) {
-			g2D.setColor(Color.RED);
-			g2D.drawRect(this.x, this.y, this.boxWidth, this.boxHeight);
-			g2D.drawString(questName + " " + questLevel, MainPanel.WINDOW_WIDTH / 4 + (20 * this.questLevel) + 20, 100 + (100 * yIterator) + 30 - scrPos);
+			g2D.drawImage(tile, this.x, this.y, this.boxWidth, this.boxHeight, null);
+			g2D.setColor(Color.BLACK);
+			g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 17));
+			g2D.drawString(questName, MainPanel.WINDOW_WIDTH / 4 + (20 * this.questLevel) + 20, 100 + (100 * yIterator) + 35 - scrPos);
 			
 			// If is selected then draw this
 			if (MainPanel.currentlySelected != null) {
 				if (MainPanel.currentlySelected.equals(this))
 				{
-					g2D.setColor(Color.BLUE);
+					g2D.setColor(Color.WHITE);
 					g2D.drawRect(this.x - 6, this.y - 6, this.boxWidth + 12, this.boxHeight + 12);
 				}
 			}
@@ -195,13 +201,21 @@ public class Quest {
 			this.progressionBar.x = this.x + 10;
 			this.progressionBar.y = this.y + 50;
 			
+			// Preparing background
+			g2D.setColor(new Color(87, 65, 14));
+			g2D.fillRect(this.progressionBar.x, this.progressionBar.y, this.progressionBar.width, this.progressionBar.height);
+			
 			// Drawing progress
-			g2D.setColor(new Color(209, 160, 0));
+			g2D.setColor(new Color(250, 190, 50));
 			g2D.fillRect(this.progressionBar.x, this.progressionBar.y, this.progressionBar.width / this.maxProgress * this.progress, this.progressionBar.height);
 			
 			// Drawing progressionBar outline
-			g2D.setColor(Color.WHITE);
+			float thickness = 2;
+			Stroke oldStroke = g2D.getStroke();
+			g2D.setStroke(new BasicStroke(thickness));
+			g2D.setColor(new Color(131, 87, 0));
 			g2D.draw(progressionBar);
+			g2D.setStroke(oldStroke);
 		}
 		
 		yIterator++;

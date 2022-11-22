@@ -11,6 +11,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,6 +21,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -87,6 +89,10 @@ public class MainPanel extends JPanel implements Runnable{
 	public static int lastCursor = Cursor.DEFAULT_CURSOR;
 	public static boolean cursorOnSomething = false;
 	
+	// Needed images
+	
+	private BufferedImage tile, textFieldImage, textFieldActiveImage, buttonImage, buttonActiveImage;
+	
 	public MainPanel() {
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 		this.setBackground(Color.BLACK);
@@ -106,6 +112,23 @@ public class MainPanel extends JPanel implements Runnable{
 		
 		// Calculate progress
 		this.calculateProgress();
+		
+		try {
+			tile = ImageIO.read(getClass().getResourceAsStream("/res/tile.png"));
+			textFieldImage = ImageIO.read(getClass().getResourceAsStream("/res/textField.png"));
+			textFieldActiveImage = ImageIO.read(getClass().getResourceAsStream("/res/textFieldActive.png"));
+			
+			buttonImage = ImageIO.read(getClass().getResourceAsStream("/res/button.png"));
+			buttonActiveImage = ImageIO.read(getClass().getResourceAsStream("/res/buttonActive.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			Run.icon = ImageIO.read(getClass().getResourceAsStream("/res/checked2.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// Method for loading Quest data
@@ -298,37 +321,27 @@ public class MainPanel extends JPanel implements Runnable{
 		}
 		
 		// Box
-		g2D.setColor(Color.BLACK);
-		g2D.fillRect(this.boxX, this.boxY, this.boxWidth, this.boxHeight);
-		g2D.setColor(Color.RED);
-		g2D.drawRect(this.boxX, this.boxY, this.boxWidth, this.boxHeight);
+		g2D.drawImage(tile, this.boxX, this.boxY, this.boxWidth, this.boxHeight, null);
 		
 		// TextField
 		if (MainPanel.textFieldActive) {
-			g2D.setColor(Color.WHITE);
+			g2D.drawImage(this.textFieldActiveImage, this.textField.x, this.textField.y, this.textField.width, this.textField.height, null);
 		} else {
-			g2D.setColor(new Color(217, 217, 217));
+			g2D.drawImage(this.textFieldImage, this.textField.x, this.textField.y, this.textField.width, this.textField.height, null);
 		}
-		g2D.fill(textField);
-		g2D.setColor(Color.RED);
-		g2D.draw(textField);
 		
 		g2D.setColor(Color.BLACK);
 		g2D.setFont(getFont().deriveFont(Font.BOLD, 15));
 		g2D.drawString(MainPanel.textFieldText, textField.x + 10, textField.y + 25);
 		
 		// Button
-		g2D.setColor(Color.BLACK);
-		g2D.fill(button);
-		g2D.setColor(Color.RED);
-		g2D.draw(button);
-		g2D.setColor(Color.WHITE);
-		g2D.drawString("Add", button.x + (button.width / 2) - 20, button.y + 25);
-		
 		if (this.buttonActive) {
-			g2D.setColor(Color.BLUE);
-			g2D.drawRect(button.x - 5, button.y - 5, button.width + 10, button.height + 10);
+			g2D.drawImage(this.buttonActiveImage, this.button.x, this.button.y, this.button.width, this.button.height, null);
+		} else {
+			g2D.drawImage(this.buttonImage, this.button.x, this.button.y, this.button.width, this.button.height, null);
 		}
+		g2D.setColor(Color.BLACK);
+		g2D.drawString("Add", button.x + (button.width / 2) - 20, button.y + 25);
 		
 		g2D.setFont(getFont().deriveFont(Font.PLAIN, 13));
 		
@@ -336,6 +349,9 @@ public class MainPanel extends JPanel implements Runnable{
 		if (Debugger.getDebugger()) {
 			Debugger.draw(lastFPSCount, g2D);
 		}
+		
+		g2D.setColor(Color.WHITE);
+		g2D.drawString("'F2' - Debugger", 20, WINDOW_HEIGHT - 30);
 				
 		// Calculating maximum amount of scrolling
 		MouseWheelHandler.maxScroll = Quest.yIterator * 100 - WINDOW_HEIGHT + 200;

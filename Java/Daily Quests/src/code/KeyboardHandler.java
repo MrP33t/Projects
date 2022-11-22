@@ -28,9 +28,6 @@ public class KeyboardHandler implements KeyListener{
 					Debugger.setDebugger(true);
 				}
 				break;
-			case KeyEvent.VK_R:
-				MP.mainQuests.add(new Quest("Test"));
-				break;
 			}
 		} else {
 			if (keyCode == KeyEvent.VK_BACK_SPACE) {

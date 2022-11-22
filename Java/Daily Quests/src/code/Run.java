@@ -1,7 +1,13 @@
 package code;
 
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 // Program Start class
@@ -9,6 +15,7 @@ public class Run {
 
 	private static JFrame window;
 	private static MainPanel MP;
+	public static BufferedImage icon;
 	// Class for creating a window
 	public static void main(String[] args) {
 		
@@ -27,6 +34,8 @@ public class Run {
 		MP = new MainPanel();
 		window.add(MP);
 		window.pack();
+		
+		window.setIconImage(icon);
 		
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
