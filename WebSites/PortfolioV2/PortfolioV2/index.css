@@ -80,6 +80,13 @@ nav .menu-btn {
     font-size: 3em;
     height: 100%;
     align-items: center;
+    padding: 0 3vw;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+nav .menu-btn:hover {
+    color: white;
+    background: black;
 }
 nav.sticky {
     height: 6vh;
@@ -146,6 +153,7 @@ section {
 }
 #welcome {
     font-size: 4em;
+    cursor: default;
 }
 #projects {
     font-size: 3em;
@@ -195,6 +203,7 @@ section {
     letter-spacing: 0.4vw;
     position: relative;
     transition-duration: 3s;
+    cursor: default;
 }
 #text::after {
     content: "";
