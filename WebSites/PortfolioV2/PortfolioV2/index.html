@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="index.css" />
+
+    <link rel="icon" href="prefabs/PeetLogoWeb.png" />
+
+    <title>Peet</title>
+
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="#welcome">PEET</a></div>
+        <ul>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#about_me">About me</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-btn" onclick="document.getElementById('menu').classList.toggle('visible');">&#8801</div>
+    </nav>
+    <section id="welcome">
+        <div id="welcome_box">
+            <div id="text" class="hidden">Hi! thanks for visiting!</div>
+        </div>
+    </section>
+    <section id="projects">
+        <div id="text" class="hidden">My recent projects:</div>
+        <div class="project-wrapper left hidden">
+            <img src="prefabs/PortfolioV2.png" class="project-image" />
+            <div class="project-text-box left">
+                <h1>This website</h1>
+                <p>
+                    Another attempt to make good looking website<br />
+                    Well it was a little bit easier this time
+                </p>
+                <h3>Technologies used:</h3>
+                <p>HTML, CSS, JS</p>
+                <h3><a href="https://github.com/MrP33t/Projects/tree/main/WebSites/PortfolioV2" target="_blank"><span class="gray">&lt</span><span class="source">source-code </span><span class="gray">/&gt</span></a></h3>
+            </div>
+        </div>
+        <div class="project-wrapper hidden">
+            <img src="prefabs/CubeGame.png" class="project-image" />
+            <div class="project-text-box">
+                <h1>Cube Game</h1>
+                <p>
+                    My first program based on sockets in java<br />
+                    You can open app where you can move rectangle <br />
+                    and create a server, others can join you in local network <br />
+                    and you can see each other moves in "real time"
+                </p>
+                <h3>Technologies used:</h3>
+                <p>Java, Swing, Sockets</p>
+                <h3><a href="https://github.com/MrP33t/Projects/tree/main/Java/TheCube" target="_blank"><span class="gray">&lt</span><span class="source">source-code </span><span class="gray">/&gt</span></a></h3>
+            </div>
+        </div>
+        <div class="project-wrapper left hidden">
+            <img src="prefabs/Portfolio.png" class="project-image" />
+            <div class="project-text-box left">
+                <h1>First Portfolio website</h1>
+                <p>
+                    First attempt to create Portfolio
+                </p>
+                <h3>Technologies used:</h3>
+                <p>HTML, JS, CSS</p>
+                <h3><a href="https://github.com/MrP33t/Projects/tree/main/WebSites/Portfolio/Portfolio" target="_blank"><span class="gray">&lt</span><span class="source">source-code </span><span class="gray">/&gt</span></a></h3>
+            </div>
+        </div>
+        <div class="project-wrapper hidden">
+            <img src="prefabs/DailyQuests.png" class="project-image" />
+            <div class="project-text-box">
+                <h1>Daily Quests</h1>
+                <p>
+                    Simple task manager with progress bars and saving data
+                </p>
+                <h3>Technologies used:</h3>
+                <p>Java, Swing, Serialization</p>
+                <h3><a href="https://github.com/MrP33t/Projects/tree/main/Java/Daily%20Quests" target="_blank"><span class="gray">&lt</span><span class="source">source-code </span><span class="gray">/&gt</span></a></h3>
+            </div>
+        </div>
+    </section>
+    <section id="experience">
+        <div id="text" class="hidden">My Experience:</div>
+        <div class="txt-wrapper hidden">
+            <h3>Education degrees:</h3>
+            <p> IT specialist (Technikum nr 1 in Sieradz, Poland) </p>
+            <p> Mobile App Speacialist (Currently studying at University of Lodz, Poland) </p>
+            <h3>Job experience:</h3>
+            <p>Mostly jobs not related to IT, just to earn a living like Production or Construction.</p>
+            <p>I am currently looking for first internships or job in my field.</p>
+            <h3>What languages do I use?</h3>
+            <p>Java, JS, CSS, HTML, PHP and a little C++, C#</p>
+        </div>
+    </section>
+    <section id="about_me">
+        <div id="text" class="hidden">Something about me:</div>
+        <div class="txt-wrapper hidden">
+            <p>I am student at University Of Lodz, I really enjoy coding/programming.<br />
+            I like experiencing and learning new things. <br /> 
+            Besides IT I have hobbies like Reading and Mountain Climbing. <br />
+            </p>
+        </div>
+    </section>
+    <section id="contact">
+        <div id="text" class="hidden">Contact:</div>
+        <div class="txt-wrapper hidden">
+            <p><b>E-mail: </b> kaminski.piotr.mail@gmail.com</p>
+        </div>
+    </section>
+    <footer>Website made by PEET 2022</footer>
+    <div id="menu" class="menu">
+        <ul>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#about_me">About me</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        window.addEventListener("scroll", function () {
+            var header = document.querySelector("nav");
+            header.classList.toggle("sticky", window.scrollY > 0);
+        })
+        window.addEventListener("scroll", function () {
+            var header = document.querySelector('.menu');
+            header.classList.toggle("sticky", window.scrollY > 0);
+        })
+    </script>
+
+    <script src="index.js"></script>
+</body>
+</html>
