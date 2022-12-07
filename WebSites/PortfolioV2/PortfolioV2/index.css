@@ -73,10 +73,68 @@ nav ul li a:hover {
     background-color: black;
     color: white;
 }
+nav .menu-btn {
+    display: none;
+    color: black;
+    font-weight: 800;
+    font-size: 3em;
+    height: 100%;
+    align-items: center;
+}
 nav.sticky {
     height: 6vh;
 }
 
+.menu {
+    position: fixed;
+    top: 9vh;
+    right: 0;
+    width: 33vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    z-index: 12;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    transform: translateX(40vw);
+    transition-duration: 0.6s;
+}
+.menu.visible {
+    transform: translateX(0);
+}
+.menu ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.menu ul li {
+    list-style: none;
+    color: black;
+    width: 100%;
+}
+.menu ul li a {
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: black;
+    transition-duration: 0.3s;
+    width: 100%;
+    padding: 2vh 3vw;
+}
+.menu ul li a:hover {
+    background-color: black;
+    color: white;
+}
+.menu.sticky {
+    top: 6vh;
+}
 
 section {
     min-height: 101vh;
@@ -87,22 +145,22 @@ section {
     overflow: hidden;
 }
 #welcome {
-    font-size: 70px;
+    font-size: 4em;
 }
 #projects {
-    font-size: 40px;
+    font-size: 3em;
     padding-top: 9vh;
 }
 #experience {
-    font-size: 40px;
+    font-size: 3em;
     padding-top: 9vh;
 }
 #about_me {
-    font-size: 40px;
+    font-size: 3em;
     padding-top: 9vh;
 }
 #contact {
-    font-size: 40px;
+    font-size: 3em;
     padding-top: 9vh;
 }
 #welcome_box {
@@ -115,10 +173,11 @@ section {
 }
 .txt-wrapper {
     margin-top: 6vh;
-    font-size: 25px;
+    font-size: 0.5em;
     justify-content: center;
     transition-duration: 2s;
     transition-delay: 1.2s;
+    padding: 2vh 2vw;
 }
 .txt-wrapper.hidden {
     opacity: 0;
@@ -185,11 +244,12 @@ section {
     background-color: rgba(255, 255, 255, 0.7);
     transform: translateX(100vw);
     transition-duration: 2s;
-    padding: 2vh 9vw;
+    padding: 2vh 9vw 2vh 12vw;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
     color: black;
     opacity: 0;
     font-weight: 600;
+    font-size: 0.8em;
 }
 .project-text-box h1 {
     border-bottom: 3px solid green;
@@ -205,6 +265,7 @@ section {
 }
 .project-text-box.left {
     clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+    padding: 2vh 12vw 2vh 9vw;
 }
 .project-wrapper.shown .project-image {
     opacity: 1;
@@ -222,10 +283,147 @@ footer {
     align-content: center;
     color: white;
     background-color: black;
+    font-size: 1em;
 }
 .gray {
     color: gray;
 }
 .source {
     color: blue;
+}
+@media (max-width: 760px) {
+    #welcome {
+        font-size: 3em;
+    }
+
+    #projects {
+        font-size: 2.5em;
+        padding-top: 9vh;
+    }
+
+    #experience {
+        font-size: 2.5em;
+        padding-top: 9vh;
+    }
+
+    #about_me {
+        font-size: 2.5em;
+        padding-top: 9vh;
+    }
+
+    #contact {
+        font-size: 2.5em;
+        padding-top: 9vh;
+    }
+    .txt-wrapper {
+        font-size: 0.5em;
+    }
+    .project-text-box {
+        font-size: 0.9em;
+        width: 90vw;
+    }
+    .project-text-box.left {
+        font-size: 0.9em;
+        width: 90vw;
+    }
+    .project-wrapper.shown .project-text-box {
+        transform: translateX(10vw);
+    }
+    .project-wrapper.shown .project-text-box.left {
+        transform: translateX(0);
+    }
+    .project-wrapper {
+        min-height: 90vh;
+        flex-direction: column;
+    }
+    .project-wrapper.left {
+        min-height: 90vh;
+        flex-direction: column;
+    }
+    .project-image {
+        width: 80vw;
+        height: 30vh;
+        align-self: center;
+    }
+}
+@media (max-width: 570px) {
+    #welcome {
+        font-size: 2em;
+    }
+
+    #projects {
+        font-size: 1.5em;
+        padding-top: 9vh;
+    }
+
+    #experience {
+        font-size: 1.5em;
+        padding-top: 9vh;
+    }
+
+    #about_me {
+        font-size: 1.5em;
+        padding-top: 9vh;
+    }
+
+    #contact {
+        font-size: 1.5em;
+        padding-top: 9vh;
+    }
+    .txt-wrapper {
+        font-size: 0.7em;
+    }
+    footer {
+        font-size: 0.8em;
+    }
+    .project-text-box {
+        font-size: 0.9em;
+    }
+    .project-image {
+        align-self: center;
+    }
+}
+@media (max-width: 390px) {
+    #welcome {
+        font-size: 1.5em;
+    }
+
+    #projects {
+        font-size: 1em;
+        padding-top: 9vh;
+    }
+
+    #experience {
+        font-size: 1em;
+        padding-top: 9vh;
+    }
+
+    #about_me {
+        font-size: 1em;
+        padding-top: 9vh;
+    }
+
+    #contact {
+        font-size: 1em;
+        padding-top: 9vh;
+    }
+    .txt-wrapper {
+        font-size: 0.8em;
+    }
+    .project-text-box {
+        font-size: 0.9em;
+    }
+}
+@media (max-width: 730px) {
+    nav ul {
+        display: none;
+    }
+    nav .menu-btn {
+        display: flex;
+    }
+}
+@media (min-width: 731px) {
+    .menu {
+        display: none;
+    }
 }

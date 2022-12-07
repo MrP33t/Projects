@@ -21,6 +21,7 @@
             <li><a href="#about_me">About me</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+        <div class="menu-btn" onclick="document.getElementById('menu').classList.toggle('visible');">&#8801</div>
     </nav>
     <section id="welcome">
         <div id="welcome_box">
@@ -98,10 +99,22 @@
         </div>
     </section>
     <footer>Website made by PEET 2022</footer>
+    <div id="menu" class="menu">
+        <ul>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#about_me">About me</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
 
     <script type="text/javascript">
         window.addEventListener("scroll", function () {
             var header = document.querySelector("nav");
+            header.classList.toggle("sticky", window.scrollY > 0);
+        })
+        window.addEventListener("scroll", function () {
+            var header = document.querySelector('.menu');
             header.classList.toggle("sticky", window.scrollY > 0);
         })
     </script>
