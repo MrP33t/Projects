@@ -229,7 +229,7 @@ section {
 
 .project-wrapper {
     margin-top: 10vh;
-    height: 80vh;
+    min-height: 80vh;
     width: 100%;
     display: flex;
     font-size: 20px;
@@ -246,6 +246,7 @@ section {
     opacity: 0;
     transition-duration: 3s;
     box-shadow: 0 0 10px 10px black;
+    margin-bottom: 7vh;
 }
 .project-text-box {
     width: 50vw;
@@ -330,6 +331,7 @@ footer {
     .project-text-box {
         font-size: 0.9em;
         width: 90vw;
+        height: 60vh;
     }
     .project-text-box.left {
         font-size: 0.9em;
